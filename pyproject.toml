@@ -59,7 +59,7 @@ semantic-release = "semantic_release.cli:main"
 # -----------------------------------------------------------------------------
 
 [tool.ruff]
-include = ["pyproject.toml", "trame_tweakpane/**/*.py", "trame/**/*.py", "examples/**/*.py"]
+include = ["pyproject.toml", "trame_tweakpane/**/*.py", "trame/**/*.py", "examples/**/*.py", "tests/**/*.py"]
 line-length = 88
 indent-width = 4
 target-version = "py37"

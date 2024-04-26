@@ -2,6 +2,19 @@
 
 
 
+## v0.1.2 (2024-04-26)
+
+### Ci
+
+* ci: try to fix js build step ([`5d82786`](https://github.com/Kitware/trame-tweakpane/commit/5d82786356788cdb6aea7d3a67d7db40416e0392))
+
+### Fix
+
+* fix(git): ci fetch step ([`57162be`](https://github.com/Kitware/trame-tweakpane/commit/57162bece8aafde9d08bdf2f8eac5ec22df6dd0f))
+
+* fix: build JS to bundle it ([`5fa373a`](https://github.com/Kitware/trame-tweakpane/commit/5fa373a8f6415e0552cb13df77eec99c9b8c25ec))
+
+
 ## v0.1.1 (2024-04-26)
 
 ### Ci

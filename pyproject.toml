@@ -148,7 +148,7 @@ build_command = """
 """
 
 [tool.semantic_release.branches.main]
-match = "(release)"
+match = "(master)"
 prerelease_token = "rc"
 prerelease = false
 

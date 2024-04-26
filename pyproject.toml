@@ -43,13 +43,15 @@ build-backend = "hatchling.build"
 [tool.hatch.build.targets.sdist]
 include = [
   "*.py",
+  "trame_tweakpane/module/serve/*",
+]
+exclude = [
+  "tests",
+  "examples",
 ]
 
 [tool.hatch.build.targets.wheel]
 packages = ["trame", "trame_tweakpane"]
-artifacts = [
-  "trame_tweakpane/module/serve/*.js",
-]
 
 [project.scripts]
 semantic-release = "semantic_release.cli:main"

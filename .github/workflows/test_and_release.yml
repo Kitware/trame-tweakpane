@@ -1,4 +1,4 @@
-name: Test and Release
+name: Release
 
 on:
   push:
@@ -7,108 +7,54 @@ on:
     branches: [ master ]
 
 jobs:
-  pre-commit:
+  release:
     runs-on: ubuntu-latest
+    concurrency: release
+    environment:
+      name: pypi
+      url: https://pypi.org/project/trame-tweakpane/
+    permissions:
+      id-token: write
+      contents: write
+
     steps:
-      - uses: actions/checkout@v2
-
-      - uses: actions/setup-python@v2
+      - uses: actions/checkout@v3
         with:
-          python-version: "3.9"
+          fetch-depth: 0
+          ref: master
 
-      # Install and run pre-commit
-      - run: |
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip setuptools wheel
+          python -m pip install ".[ci]"
+
+      - name: Check pre-commit
+        run: |
           pip install pre-commit
           pre-commit install
           pre-commit run --all-files
 
-  pytest:
-    name: Pytest ${{ matrix.config.name }}
-    runs-on: ${{ matrix.config.os }}
-    strategy:
-      fail-fast: false
-      matrix:
-        python-version: [3.9]
-        config:
-        - {
-            name: "Linux",
-            os: ubuntu-latest
-          }
-        - {
-            name: "MacOSX",
-            os: macos-latest
-          }
-        - {
-            name: "Windows",
-            os: windows-latest
-          }
-
-    defaults:
-      run:
-        shell: bash
-
-    steps:
-    - name: Checkout
-      uses: actions/checkout@v2
-
-    - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v2
-      with:
-        python-version: ${{ matrix.python-version }}
-
-    - name: Install and Run Tests
-      run: |
-        pip install .
-        pip install -r tests/requirements.txt
-        pytest -s ./tests
-
-  test-npm-build:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-
-      - name: Set Up Node
-        uses: actions/setup-node@v3
-        with:
-          node-version: 14
-
-      - name: Build Vue Components
-        run: |
-          cd vue-components
-          npm i
-          npm run build
-
-  release:
-    needs: [
-      pre-commit,
-      pytest,
-      test-npm-build,
-    ]
-    runs-on: ubuntu-latest
-    if: github.event_name == 'push'
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-
-      - name: Set Up Node
-        uses: actions/setup-node@v3
-        with:
-          node-version: 14
-
-      - name: Build Vue Components
-        run: |
-          cd vue-components
-          npm i
-          npm run build
-
       - name: Python Semantic Release
-        uses: relekang/python-semantic-release@v7.34.6
+        id: release
+        uses: python-semantic-release/python-semantic-release@v9.4.1
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          repository_username: __token__
-          repository_password: ${{ secrets.PYPI_API_TOKEN }}
+
+      - name: Publish package distributions to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
+        if: steps.release.outputs.released == 'true'
+        with:
+          password: ${{ secrets.PYPI_API_TOKEN }}
+
+      - name: Publish package distributions to GitHub Releases
+        uses: python-semantic-release/upload-to-gh-release@main
+        if: steps.release.outputs.released == 'true'
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          tag: ${{ steps.release.outputs.tag }}
+

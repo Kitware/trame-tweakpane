@@ -1,3 +1,1 @@
-from trame_client.utils.version import get_version
-
-__version__ = get_version("trame-tweakpane")
+__version__ = "0.0.0"

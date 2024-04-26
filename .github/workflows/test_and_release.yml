@@ -28,9 +28,11 @@ jobs:
       - test-quality
     runs-on: ubuntu-latest
     concurrency: release
+
     environment:
       name: pypi
       url: https://pypi.org/project/trame-tweakpane/
+
     permissions:
       id-token: write
       contents: write
@@ -38,6 +40,9 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          ref: master
 
       - name: Set Up Node
         uses: actions/setup-node@v4

@@ -7,7 +7,7 @@ TweakPane widgets for trame made easy.
 License
 ------------------------
 
-trame-tweakpane is made available under the MIT License. For more details, see [LICENSE](./LICENSE). This license has been chosen to match the one used by [tweakpane](https://tweakpane.github.io/docs/) which that project expose to trame.
+trame-tweakpane is made available under the MIT License. For more details, see `LICENSE <https://raw.githubusercontent.com/Kitware/trame-tweakpane/master/LICENSE>`_. This license has been chosen to match the one used by `tweakpane <https://tweakpane.github.io/docs/>`_ which that project expose to trame.
 
 
 Installation

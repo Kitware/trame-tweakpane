@@ -1,5 +1,6 @@
 from trame_client.widgets.core import AbstractElement
-from .. import module
+
+from trame_tweakpane import module
 
 
 class HtmlElement(AbstractElement):
@@ -23,9 +24,11 @@ __all__ = [
 
 
 class Pane(HtmlElement):
-    """Main container for panel
+    """
+    Main container for panel.
 
     Args:
+    ----
         title (str): Panel title shown at the top that let you toggle its content.
         expanded (bool): Should you start with the panel open or closed. Default is closed.
 
@@ -34,6 +37,7 @@ class Pane(HtmlElement):
         change: triggered when any child elem is getting changed with the event of the modification.
         deleted: triggered when the object get deleted.
         export: triggered with the exported state when the method export_state() is called
+
     """
 
     _next_id = 0
@@ -58,18 +62,20 @@ class Pane(HtmlElement):
         self._attributes["ref"] = f'ref="{self.__ref}"'
 
     def import_state(self, state_to_load):
-        """Load provided state into the full Pane"""
+        """Load provided state into the full Pane."""
         self.server.js_call(self.__ref, "importState", state_to_load)
 
     def export_state(self):
-        """Trigger a state export that will result in the "export" event to happen"""
+        """Trigger a state export that will result in the "export" event to happen."""
         self.server.js_call(self.__ref, "exportState")
 
 
 class Binding(HtmlElement):
-    """Generate a Binding Blade
+    """
+    Generate a Binding Blade.
 
     Args:
+    ----
         name (string): Name of the state variable to control.
         default (python value): Value to initialize the state variable with.
         options (string): JS object capturing the binding options (view, min, max, ...).
@@ -77,6 +83,7 @@ class Binding(HtmlElement):
     Events:
         change: Triggered when user interact with the UI and change the variable.
                 But regular reactive state management will also work naturally.
+
     """
 
     def __init__(self, default=None, **kwargs):
@@ -95,13 +102,16 @@ class Binding(HtmlElement):
 
 
 class Folder(HtmlElement):
-    """Create a grouping structure that can be collapsed or expanded dynamically or even hidden dynamically.
+    """
+    Create a grouping structure that can be collapsed or expanded dynamically or even hidden dynamically.
 
     Args:
+    ----
         title (str): Label to display for that group panel.
         expanded (bool): Start closed by default but if set to True, it will be expanded.
         hidden (bool): Reactive property that let you hide its full content if set to true.
         disabled (bool): Reactive property that let you disable edits when set to true.
+
     """
 
     def __init__(self, **kwargs):
@@ -118,14 +128,17 @@ class Folder(HtmlElement):
 
 
 class Button(HtmlElement):
-    """Create a Button element
+    """
+    Create a Button element.
 
     Args:
+    ----
         label (str): Text you want to see on the left.
         title (str): Text you want to see in the button.
 
     Events:
         click (fn): Function or method you want to call when the button is clicked.
+
     """
 
     def __init__(self, **kwargs):
@@ -143,12 +156,15 @@ class Button(HtmlElement):
 
 
 class Tabs(HtmlElement):
-    """Tabs container
+    """
+    Tabs container.
 
     Args:
+    ----
         pages (str): List of label you want for your pages (pages="['first', 'second']")
         hidden (bool): Reactive property that let you hide its full content if set to true.
         disabled (bool): Reactive property that let you disable edits when set to true.
+
     """
 
     def __init__(self, **kwargs):
@@ -164,10 +180,13 @@ class Tabs(HtmlElement):
 
 
 class Tab(HtmlElement):
-    """Define the content of a given Tab.
+    """
+    Define the content of a given Tab.
 
     Args:
+    ----
         index (int): Must provide the index of the tab to link to. Start at 0.
+
     """
 
     def __init__(self, **kwargs):
@@ -181,9 +200,11 @@ class Tab(HtmlElement):
 
 
 class BladeSlider(HtmlElement):
-    """Blade with 'slider' as view.
+    """
+    Blade with 'slider' as view.
 
     Args:
+    ----
         label (str): Label to use for blade.
         hidden (bool): Reactive property that let you hide its full content if set to true.
         disabled (bool): Reactive property that let you disable edits when set to true.
@@ -195,6 +216,7 @@ class BladeSlider(HtmlElement):
 
     Events:
         change: triggered when user interact with the UI.
+
     """
 
     def __init__(self, **kwargs):
@@ -218,9 +240,11 @@ class BladeSlider(HtmlElement):
 
 
 class BladeText(HtmlElement):
-    """Blade with 'text' as view.
+    """
+    Blade with 'text' as view.
 
     Args:
+    ----
         label (str): Label to use for blade.
         hidden (bool): Reactive property that let you hide its full content if set to true.
         disabled (bool): Reactive property that let you disable edits when set to true.
@@ -230,6 +254,7 @@ class BladeText(HtmlElement):
 
     Events:
         change: triggered when user interact with the UI.
+
     """
 
     def __init__(self, **kwargs):
@@ -251,9 +276,11 @@ class BladeText(HtmlElement):
 
 
 class BladeList(HtmlElement):
-    """Blade with 'list' as view.
+    """
+    Blade with 'list' as view.
 
     Args:
+    ----
         label (str): Label to use for blade.
         hidden (bool): Reactive property that let you hide its full content if set to true.
         disabled (bool): Reactive property that let you disable edits when set to true.
@@ -262,6 +289,7 @@ class BladeList(HtmlElement):
 
     Events:
         change: triggered when user interact with the UI.
+
     """
 
     def __init__(self, **kwargs):
@@ -282,11 +310,14 @@ class BladeList(HtmlElement):
 
 
 class BladeSeparator(HtmlElement):
-    """Separator Blade to create some spacing
+    """
+    Separator Blade to create some spacing.
 
     Args:
+    ----
         hidden (bool): Reactive property that let you hide its full content if set to true.
         disabled (bool): Reactive property that let you disable edits when set to true.
+
     """
 
     def __init__(self, **kwargs):

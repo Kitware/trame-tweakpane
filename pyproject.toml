@@ -74,6 +74,7 @@ line-ending = "auto"
 select = ["ALL"]
 ignore = [
   # ok
+  "D203",
   "C408",
   "PLR2004",
   
@@ -104,8 +105,8 @@ ignore = [
 ]
 
 [tool.ruff.lint.per-file-ignores]
-"examples/wavelet*.py" = ["F403", "F405"]
 "examples/*.py" = [
+  "T201",
   "INP001",
   "I001", 
   "F401", 

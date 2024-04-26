@@ -1,4 +1,4 @@
-from trame_tweakpane.widgets.tweakpane import *
+from trame_tweakpane.widgets.tweakpane import *  # noqa: F403
 
 
 def initialize(server):

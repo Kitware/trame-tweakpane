@@ -40,6 +40,10 @@ Usage
                 with tweakpane.Tab(index=2):
                     tweakpane.Binding(name="f", default="something")
 
+.. image:: https://raw.githubusercontent.com/Kitware/trame-tweakpane/master/examples/readme_example.png
+  :width: 400
+  :alt: Visual output of the code above
+
 Development
 ------------------------
 

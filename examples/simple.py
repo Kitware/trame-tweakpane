@@ -7,19 +7,6 @@ from trame_tweakpane.widgets import tweakpane
 class DemoApp:
     def __init__(self, server=None):
         self.server = get_server(server)
-        self.server.state.update(
-            {
-                "txt": "Hello world",
-                "number": 0.01,
-                "slider": 0.123,
-                "step": 0.05,
-                "list_number": 3,
-                "list_string": "hello",
-                "bool": True,
-                "color": {"r": 1 * 255, "g": 0, "b": 0.33 * 255},
-                "point": {"x": 0, "y": 0},
-            }
-        )
         self.ui = self._build_ui()
 
     def on_click(self):
@@ -34,15 +21,29 @@ class DemoApp:
             html.Div("Hello")
             with html.Div(style="display: flex"):
                 with tweakpane.Pane(
-                    title="Hello World", expanded=True, style="width: 300px;"
-                ) as p:
+                    title="Hello World",
+                    expanded=True,
+                    style="width: 300px;",
+                ):
                     with tweakpane.Folder(title="Basic"):
-                        tweakpane.Binding(name="txt")
-                        tweakpane.Binding(name="number")
-                    with tweakpane.Folder(title="Sliders", expanded=True):
-                        tweakpane.Binding(name="slider", options="{ min: -1, max: 1 }")
                         tweakpane.Binding(
-                            name="step", options="{ min: -1, max: 1 , step: 0.05 }"
+                            name="txt",
+                            default="Hello world",
+                        )
+                        tweakpane.Binding(
+                            name="number",
+                            default=0.01,
+                        )
+                    with tweakpane.Folder(title="Sliders", expanded=True):
+                        tweakpane.Binding(
+                            name="slider",
+                            default=0.123,
+                            options="{ min: -1, max: 1 }",
+                        )
+                        tweakpane.Binding(
+                            name="step",
+                            default=0.05,
+                            options="{ min: -1, max: 1 , step: 0.05 }",
                         )
                     with tweakpane.Folder(
                         title="Rest",
@@ -52,18 +53,27 @@ class DemoApp:
                     ):
                         tweakpane.Binding(
                             name="list_number",
+                            default=3,
                             options="{ label: 'List of Number', options: { a: 1, b: 2, c: 3 }}",
                         )
                         tweakpane.Binding(
                             name="list_string",
+                            default="hello",
                             options="{ options: { none: '', something: 'hello', else: 'world' }}",
                         )
-                        tweakpane.Binding(name="bool")
                         tweakpane.Binding(
-                            name="color", options="{ view: 'color', picker: 'inline' }"
+                            name="bool",
+                            default=True,
                         )
                         tweakpane.Binding(
-                            name="point", options="{ picker: 'inline', expanded: true }"
+                            name="color",
+                            default={"r": 1 * 255, "g": 0, "b": 0.33 * 255},
+                            options="{ view: 'color', picker: 'inline' }",
+                        )
+                        tweakpane.Binding(
+                            name="point",
+                            default={"x": 0, "y": 0},
+                            options="{ picker: 'inline', expanded: true }",
                         )
                         tweakpane.Binding(
                             name="slider",
@@ -110,8 +120,8 @@ class DemoApp:
                                 options="{ a: 1, b: 2, c: 3 }",
                                 change=(self.blade_update, "['list', $event]"),
                             )
-                    print(p)
-                with html.Div(style="flex: 1;"):
+
+                with html.Div(style="flex: 1; padding: 2rem;"):
                     html.Div("txt={{ txt }}")
                     html.Div("number={{ number }}")
                     html.Div("slider={{ slider }}")

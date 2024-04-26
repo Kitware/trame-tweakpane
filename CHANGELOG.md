@@ -2,6 +2,13 @@
 
 
 
+## v0.1.3 (2024-04-26)
+
+### Fix
+
+* fix(js): properly include JS artifact ([`ab02495`](https://github.com/Kitware/trame-tweakpane/commit/ab0249594c730bcb1d94fba7a71886110fbaeef1))
+
+
 ## v0.1.2 (2024-04-26)
 
 ### Ci

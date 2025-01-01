@@ -1,6 +1,8 @@
-===============
-trame-tweakpane
-===============
+.. |pypi_download| image:: https://img.shields.io/pypi/dm/trame-tweakpane
+
+=============================================
+trame-tweakpane |pypi_download|
+=============================================
 
 TweakPane widgets for trame made easy.
 
